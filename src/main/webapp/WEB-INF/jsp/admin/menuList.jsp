@@ -129,8 +129,7 @@
 						</div>
 						<div class="modal-body">
 							<div class="card-body card-block">
-								<form action="" method="post" enctype="multipart/form-data"
-									class="form-horizontal">
+								<form id="frmMenu" class="form-horizontal">
 									<div class="row form-group">
 										<div class="col col-md-3">
 											<label class=" form-control-label">메뉴번호</label>
@@ -154,7 +153,7 @@
 											<label for="price" class=" form-control-label">단가</label>
 										</div>
 										<div class="col-3 col-md-3">
-											<input type="number" id="price" name="price" placeholder="단가"
+											<input type="number" id="menuPrc" name="menuPrc" placeholder="단가"
 												class="form-control"> <small
 												class="help-block form-text"></small>
 										</div>
@@ -176,7 +175,7 @@
 												재고</label>
 										</div>
 										<div class="col-3 col-md-3">
-											<input type="number" id="menuStock" name="menuStock"
+											<input type="number" id="menuStockQTY" name="menuStockQTY"
 												placeholder="재고" class="form-control">
 										</div>
 									</div>
@@ -185,8 +184,8 @@
 											<label for="textarea-input" class=" form-control-label">전시여부</label>
 										</div>
 										<div class="col-12 col-md-9">
-											<input type="checkbox" checked data-toggle="toggle"
-												data-size="lg">
+											<label><input type="radio" name="menuDispYn" value="Y" checked>전시</label>
+											<label><input type="radio" name="menuDispYn" value="N">비전시</label>
 										</div>
 									</div>
 									<div class="row form-group">
@@ -195,7 +194,7 @@
 												이미지</label>
 										</div>
 										<div class="col-12 col-md-9">
-											<input type="file" id="file-input" name="file-input"
+											<input type="file" id="menuImgNm" name="menuImgNm"
 												class="form-control-file">
 										</div>
 									</div>
@@ -205,7 +204,7 @@
 						<div class="modal-footer">
 							<button type="button" class="btn btn-secondary"
 								data-dismiss="modal">취소</button>
-							<button type="button" class="btn btn-primary">저장</button>
+							<button type="button" id="btnSave" class="btn btn-primary">저장</button>
 						</div>
 					</div>
 				</div>
@@ -215,4 +214,11 @@
 			<%@ include file="/WEB-INF/jsp/admin/include/footer.jsp"%>
 		</div>
 </body>
+
+<script type="text/javascript">
+	$("#btnSave").click(function(){
+		alert("저장하시겠습니까?");
+	});
+</script>
+
 </html>
