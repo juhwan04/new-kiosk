@@ -217,7 +217,29 @@
 
 <script type="text/javascript">
 	$("#btnSave").click(function(){
+		event.preventDefault();
 		alert("저장하시겠습니까?");
+		var form = $('#frmMenu')[0];
+		var paramData = new FormData(form);
+		
+		$.ajax({
+			url: '/admin/menu/add',
+			data : paramData,
+			method : 'post',
+			enctype : 'multipar/form-data',
+			contentType : false,
+			processData : false,
+			
+			success : function(data){
+				alert("성공");
+			},
+			error : function(data){
+				alert("에러");
+			},
+			complete : function(data){
+				console.log(data.responseText);
+			}
+		})
 	});
 </script>
 
