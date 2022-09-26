@@ -58,15 +58,15 @@
        
 
         <div id='menuList' class="row">
-        <template id="menu=menuCard">
+        <template id="menuCard">
 	        <div class="col-lg-4 col-md-6 mb-4">
 	           	<div class="card h-100">
-	              	<a href="#"><img class="card-img-top" src="../static/media/1.PNG" alt=""></a>
+	              	<a href="#"><img class="card-img-top" src="../static/media/1.PNG" alt="" style="height:300px;"></a>
 	              	<div class="card-body">
 		                <h4 class="card-title">
 		                  춘천 국물 닭갈비 떡뽁이
 		                </h4>
-		                <h5>2,000원</h5>
+		                <h5 class="card-prc">2,000원</h5>
 		                <p class="card-text">닭갈비와 떡볶이의 오묘한 조화</p>
 	              	</div>
 		            <div class="card-footer" >
@@ -76,8 +76,11 @@
 	                        <span class="plus bg-dark">+</span>
 	                    </div>
 	                    <div style="display:inline; padding-top:0px">
-	                      	<button type="button" class="btn btn-warning" style="margin-left:15px; padding:3px 15px 3px 15px"><i class="fa fa-cutlery"></i> 주문</button>
+	                     <button type="button" name="btnOrder" class="btn btn-warning" style="margin-left:15px; padding:3px 15px 3px 15px"><i class="fa fa-cutlery"></i> 주문</button>
 	                    </div>
+	                    <input type=hidden class="menu-no">
+	                    <input type=hidden class="menu-prc">
+	                    <input type=hidden class="menu-nm">
                 	</div>
               	</div>
          	</div>
@@ -112,11 +115,25 @@
 	
 	getMenuList = function(){
 		$.ajax({
-			
 			url : 'admin/menu',
 			method : 'GET',
 			success : function(data){
-				alert('성공');
+				if(data===""){
+					alert("주문가능한 상품이 없습니다.");
+				}else{
+					data.forEach(function(menu){
+						let card = $($('#menuCard').html());
+						card.find('.card-img-top').attr('src', '../static/media/' + menu.fileNm);
+						card.find('.card-title').text(menu.menuNm);
+						card.find('.card-prc').text(menu.menuPrc + '원');
+						card.find('.card-text').text(menu.menuDesc);
+						
+						card.find('.menu-no').val(menu.menuNo);
+						card.find('.menu-prc').val(menu.menuPrc);
+						card.find('.menu-nm').val(menu.menuNm);
+						$('#menuList').append(card);
+					});
+				}
 			},
 			error : function(data){
 				alert('실패');
@@ -125,7 +142,36 @@
 		
 	}
 
-
+	$(document).on('click','button[name="btnOrder"]', function(){
+		var menuNo = $(this).parent().siblings('.menu-no').val();
+		var menuNm = $(this).parent().siblings('.menu-nm').val();
+		var menuPrc = $(this).parent().siblings('.menu-prc').val();
+		var ordQty = $(this).parent().siblings('.qty').children('.count').val();
+		
+		var msg = menuNm + " " + ordQty + "개를 주문하시겠습니까?\n"
+				+ menuPrc + "*" + ordQty + " = " + menuPrc*ordQty + "원 입니다.";
+		
+		if(confirm(msg)){
+			$.ajax({
+				url : "/admin/order",
+				method : "POST",
+				data :{
+					menuNo : menuNo,
+					menuNm : menuNm,
+					menuPrc : menuPrc,
+					ordQty : ordQty
+				},
+				success : function(){
+					alert("주문성공!");
+				},
+				error : function(){
+					alert(data);
+				}
+			})
+		}
+		
+	})
+	
 </script>
 
 </html>

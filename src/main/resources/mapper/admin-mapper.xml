@@ -55,5 +55,25 @@
 			WHERE
 				MENU_NO = #{menuNo}
 	</update>
-   
+	   <insert id="insertOrd" parameterType="edu.sungil.foods.web.domain.dto.OrdInfo">
+			INSERT INTO tb_ord
+			   	(
+				ord_dt,
+				menu_no,
+				menu_nm,
+				ord_qty,
+				ord_amt,
+				ord_stat
+				)
+				VALUES
+				(
+					NOW(),
+					#{menuNo},
+					#{menuNm},
+					#{ordQty},
+					#{ordAmt},
+					'10'
+				)
+				
+		</insert>
 </mapper>

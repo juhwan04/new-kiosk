@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import edu.sungil.foods.web.domain.AdminMapper;
 import edu.sungil.foods.web.domain.dto.MenuInfo;
+import edu.sungil.foods.web.domain.dto.OrdInfo;
 import edu.sungil.foods.web.domain.dto.SchMenuInfo;
 
 @Service
@@ -55,5 +56,10 @@ public class AdminService {
 		SchMenuInfo schMenuInfo = new SchMenuInfo();
 		schMenuInfo.setMenuNo(menuNo);
 		return adminMapper.selectMenuList(schMenuInfo).get(0);
+	}
+
+	public void addOrd(OrdInfo ordInfo) {
+		ordInfo.setOrdAmt(ordInfo.getOrdQty() * ordInfo.getMenuPrc());
+		adminMapper.insertOrd(ordInfo);
 	}
 }
