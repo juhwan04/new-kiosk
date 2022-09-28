@@ -13,6 +13,7 @@ import edu.sungil.foods.web.domain.AdminMapper;
 import edu.sungil.foods.web.domain.dto.MenuInfo;
 import edu.sungil.foods.web.domain.dto.OrdInfo;
 import edu.sungil.foods.web.domain.dto.SchMenuInfo;
+import edu.sungil.foods.web.domain.dto.SchOrdInfo;
 
 @Service
 public class AdminService {
@@ -61,5 +62,9 @@ public class AdminService {
 	public void addOrd(OrdInfo ordInfo) {
 		ordInfo.setOrdAmt(ordInfo.getOrdQty() * ordInfo.getMenuPrc());
 		adminMapper.insertOrd(ordInfo);
+	}
+
+	public List<OrdInfo> getOrdList(SchOrdInfo schOrdInfo) {
+		return adminMapper.selectOrdList(schOrdInfo);
 	}
 }

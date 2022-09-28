@@ -76,4 +76,29 @@
 				)
 				
 		</insert>
+		
+		<select id="selectOrdList" parameterType="edu.sungil.foods.web.domain.dto.SchOrdInfo"
+		resultType = "edu.sungil.foods.web.domain.dto.OrdInfo">
+		
+		select ord_no,
+			   ord_dt,
+			   menu_no,
+			   menu_nm,
+			   ord_qty,
+			   ord_amt,
+			   ord_stat
+		from tb_ord
+		where 1=1
+		<if test="ordNo != '' and ordNo != null">
+			and ord_no = #{ordNo}
+		</if>
+		<if test="ordStat != '' and ordStat != null">
+			and ord_stat = #{ordStat}
+		</if>
+		<if test="ordDt != '' and ordDt = null">
+			and ord_dt >= date(subdate(now(), interval #{ordDt} DAY))
+		</if>
+		
+		
+		</select>
 </mapper>
