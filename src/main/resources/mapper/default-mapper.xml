@@ -25,4 +25,8 @@
 		    date_format(#{userBirthDt},'%Y-%m-%d')
 		)
     </insert>
+    
+    <update id="StatUpdateUserInfo" parameterType="edu.sungil.foods.web.domain.dto.OrdInfo">
+    	update tb_ord set ord_stat = '20' where ord_no = #{ordNo}
+    </update>
 </mapper> 

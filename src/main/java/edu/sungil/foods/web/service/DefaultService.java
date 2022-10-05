@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import edu.sungil.foods.web.domain.DefaultMapper;
 import edu.sungil.foods.web.domain.dto.MenuInfo;
+import edu.sungil.foods.web.domain.dto.OrdInfo;
 import edu.sungil.foods.web.domain.dto.UserInfo;
 
 @Service
@@ -23,6 +24,9 @@ public class DefaultService {
 	
 	public void addUserInfo(UserInfo userInfo) {
 		 defaultMapper.addUserInfo(userInfo);
+	}
+	public void StatUpdateUserInfo(OrdInfo ordInfo) {
+		defaultMapper.StatUpdateUserInfo(ordInfo);
 	}
 
 }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import edu.sungil.foods.web.domain.dto.OrdInfo;
 import edu.sungil.foods.web.domain.dto.UserInfo;
 import edu.sungil.foods.web.service.DefaultService;
 
@@ -42,6 +43,13 @@ public class DefaultController {
 		userInfo.setUserBirthDt(userBirthDt);
 		
 		defaultService.addUserInfo(userInfo);
+	}
+	
+	@RequestMapping(value="/user/StatUpdate", method = RequestMethod.POST)
+	@ResponseBody
+	public void StatUpdateUserInfo(OrdInfo ordInfo) {
+		
+		defaultService.StatUpdateUserInfo(ordInfo);
 	}
 	
 	

@@ -112,7 +112,7 @@
 	                                            <td class="desc menuNm"></td>
 	                                            <td class="ordQty"></td>
 	                                            <td class="ordAmt"></td>
-	                                            <td class="ordN"><span class="status--process">전달완료</span></td>
+	                                            <td class="ordStat"><span class="status--process">전달완료</span></td>
 	                                            <td>
 	                                                <div class="table-data-feature">
 	                                                    <button name="btnCmp" class="btn btn-success">
@@ -159,11 +159,20 @@
 						tmpTr.find('.menuNo').text(order.menuNo);
 						tmpTr.find('.menuNm').text(order.menuNm);
 						tmpTr.find('.ordDt').text(order.ordDt);
+						tmpTr.find('.ordQty').text(order.ordQty);
 						tmpTr.find('.ordAmt').text(order.ordAmt);
 						tmpTr.find('.ordStat').text(order.ordStat);
 						
+						if(order.ordStat === "접수"){
+							tmpTr.find('.ordStat').addClass('status--denied');
+							tmpTr.find("button[name=btnCmp]").attr('onclick', 'ordCmp('+order.ordNo+')');
+						} else{
+							tmpTr.find('.ordStat').addClass('status--process');
+							tmpTr.find("button[name=btnCmp]").attr('disabled', 'disabled');
+						}
 						$('#ordList').append(tmpTr)
 					});
+					
 				}
 			},
 			error : function(data){
@@ -171,5 +180,22 @@
 			}
 		});
 	})
+	
+	ordCmp = function(ordNo){
+			$.ajax({
+				url : '/user/StatUpdate',
+				method : "POST",
+				data : {
+					ordNo : ordNo
+				},
+				success : function(data){
+					alert("성공")
+				},
+				error : function(data){
+					alert("실패")
+				}
+			})
+		
+	}
 </script>
 </html>
